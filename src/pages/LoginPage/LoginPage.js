@@ -7,37 +7,59 @@ import {
   Subtitle,
   Title,
   BottomText,
-  ChangeMethod
+  ChangeMethod,
+  NameFieldsContainer,
+  ButtonContainer
 } from "./LoginPage.styles";
 import Navbar from "../../components/Navbar/Navbar";
 import FormInput from "../../components/FormInput/FormInput";
 import Button from "../../components/Button/Button";
-import { FaUser, FaEnvelope, FaLock } from "react-icons/fa";
-
+import { FaUser, FaEnvelope, FaLock, FaEye, FaChevronDown, FaCopy } from "react-icons/fa";
 
 const LoginPage = () => {
   return (
     <Container>
-            <LeftSection>
+      <LeftSection>
         <Navbar />
-K
-      <FormWrapper>
-        <Subtitle>Start for free</Subtitle>
-        <Title>Create new account</Title>
+        <FormWrapper>
+          <Subtitle>START FOR FREE</Subtitle>
+          <Title>Create new account.</Title>
 
-        <BottomText>
-            Already a member? <a href="/login">Log In</a>
+          <BottomText>
+            Already A Member? <a href="/login">Log In</a>
           </BottomText>
           
-        <FormInput label="First Name" placeholder="Enter your first name" icon={<FaUser />}/>
-        <FormInput label="Last Name" placeholder="Enter your last name" icon={<FaUser />}/>
-        <FormInput label="Email" placeholder="Enter your email" icon={<FaEnvelope />} />
-        <FormInput label="Password" type="password" placeholder="Enter password" icon={<FaLock />} />
-        <Button>Create account</Button>
-                  <ChangeMethod>Change method</ChangeMethod>
-
-      </FormWrapper>
-         </LeftSection>
+          <NameFieldsContainer>
+            <FormInput 
+              label="First name" 
+              defaultValue="Michał" 
+              icon={<FaCopy />}
+            />
+            <FormInput 
+              label="Last name" 
+              defaultValue="Masiak" 
+              icon={<FaCopy />}
+            />
+          </NameFieldsContainer>
+          
+          <FormInput 
+            label="Email" 
+            defaultValue="michal.masiak@anywhere.co" 
+            icon={<FaChevronDown />}
+          />
+          <FormInput 
+            label="Password" 
+            type="password" 
+            defaultValue="........" 
+            icon={<FaEye />}
+          />
+          
+          <ButtonContainer>
+            <ChangeMethod>Change method</ChangeMethod>
+            <Button>Create account</Button>
+          </ButtonContainer>
+        </FormWrapper>
+      </LeftSection>
       <RightSection />
     </Container>
   );

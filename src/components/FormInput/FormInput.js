@@ -1,12 +1,12 @@
 import React from "react";
-import { InputWrapper, StyledInput, Label,IconWrapper } from "./FormInput.styles";
+import { InputWrapper, StyledInput, Label, IconWrapper } from "./FormInput.styles";
 
-const FormInput = ({ label, icon,...props }) => {
+const FormInput = ({ label, icon, style, ...props }) => {
   return (
-    <InputWrapper>
+    <InputWrapper style={style}>
       {label && <Label>{label}</Label>}
-      <IconWrapper>{icon}</IconWrapper>
       <StyledInput {...props} />
+      {icon && <IconWrapper>{icon}</IconWrapper>}
     </InputWrapper>
   );
 };
