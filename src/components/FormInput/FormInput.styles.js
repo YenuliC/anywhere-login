@@ -10,6 +10,16 @@ export const Label = styled.label`
   font-size: 14px;
   margin-bottom: 4px;
   color: #555;
+  display: block;
+
+`;
+
+export const IconWrapper = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 12px;
+  transform: translateY(-50%);
+  color: #aaa;
 `;
 
 export const StyledInput = styled.input`
