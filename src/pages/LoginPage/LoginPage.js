@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { login } from "../../services/authService";
+
 import {
   Container,
   LeftSection,
@@ -55,11 +57,18 @@ const LoginPage = () => {
   };
 
   //Submit handler
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (!validate()) return;
-    alert("Form submitted successfully!");
-    // Submit to backend...
+  const handleSubmit = async (e) => {
+  e.preventDefault();
+  if (!validate()) return;
+
+  try {
+    const data = await login(form.email, form.password);
+    localStorage.setItem("accessToken", data.accessToken);
+    alert("Logged in successfully!");
+  } catch (error) {
+    alert("Login failed!");
+    console.error(error);
+  }
   };
 
   return (
