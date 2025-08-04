@@ -20,20 +20,41 @@ import { FaEye, FaChevronDown } from "react-icons/fa";
 
 const LoginPage = () => {
 
-  //Submit handler
-  const handleSubmit = async (e) => {
-  e.preventDefault();
+  // Form state
+  const [form, setForm] = useState({ username: "", password: "" });
+  const [error, setError] = useState("");
 
-  try {
-    const data = await login("michal.masiak@anywhere.co", "password123");
-    localStorage.setItem("accessToken", data.accessToken);
-    alert("Logged in successfully!");
-  } catch (error) {
-    alert("Login failed!");
-    console.error(error);
-  }
+ // Handle input changes
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+    setError(""); // clear error when typing
   };
 
+  // Submit handler
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!form.username || !form.password) {
+      setError("Username and password are required");
+      return;
+    }
+
+ try {
+    const data = await login(form.username, form.password);
+    localStorage.setItem("accessToken", data.token);
+    localStorage.setItem("refreshToken", data.refreshToken);
+    alert("Logged in successfully!");
+    console.log("Login response:", data); // <-- THIS WILL LOG TO CONSOLE
+  } catch (error) {
+    if (error.response) {
+      alert(`Login failed: ${error.response.data.message || "Invalid credentials"}`);
+      console.error("API Error:", error.response.data);
+    } else {
+      alert("Login failed: Network or server issue");
+      console.error("Unexpected Error:", error);
+    }
+  }
+};
   return (
     <Container>
       <LeftSection>
@@ -46,16 +67,20 @@ const LoginPage = () => {
             Not A Member? <Link to="/signup">Sign Up</Link>
           </BottomText>
           
-          <form onSubmit={handleSubmit}>
+         <form onSubmit={handleSubmit}>
             <FormInput 
-              label="Email" 
-              defaultValue="michal.masiak@anywhere.co" 
+              label="Username" 
+              name="username"
+              value={form.username}
+              onChange={handleChange}
               icon={<FaChevronDown />}
             />
             <FormInput 
               label="Password" 
               type="password" 
-              defaultValue="........" 
+              name="password"
+              value={form.password}
+              onChange={handleChange}
               icon={<FaEye />}
             />
             
