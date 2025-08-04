@@ -9,3 +9,14 @@ export const login = async (email, password) => {
 
   return response.data;
 };
+
+export const signup = async (firstName, lastName, email, password) => {
+  const response = await api.post("/auth/signup", {
+    firstName: firstName,
+    lastName: lastName,
+    email: email,
+    password: password
+  });
+
+  return response.data;
+};

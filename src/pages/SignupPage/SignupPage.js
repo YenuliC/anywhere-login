@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { login } from "../../services/authService";
+import { signup } from "../../services/authService";
 
 import {
   Container,
@@ -11,25 +11,26 @@ import {
   Title,
   BottomText,
   ChangeMethod,
+  NameFieldsContainer,
   ButtonContainer
-} from "../SignupPage/LoginPage.styles";
+} from "./LoginPage.styles";
 import Navbar from "../../components/Navbar/Navbar";
 import FormInput from "../../components/FormInput/FormInput";
 import Button from "../../components/Button/Button";
-import { FaEye, FaChevronDown } from "react-icons/fa";
+import { FaEye, FaChevronDown, FaCopy } from "react-icons/fa";
 
-const LoginPage = () => {
+const SignupPage = () => {
 
   //Submit handler
   const handleSubmit = async (e) => {
   e.preventDefault();
 
   try {
-    const data = await login("michal.masiak@anywhere.co", "password123");
+    const data = await signup("Michał", "Masiak", "michal.masiak@anywhere.co", "password123");
     localStorage.setItem("accessToken", data.accessToken);
-    alert("Logged in successfully!");
+    alert("Account created successfully!");
   } catch (error) {
-    alert("Login failed!");
+    alert("Signup failed!");
     console.error(error);
   }
   };
@@ -39,14 +40,27 @@ const LoginPage = () => {
       <LeftSection>
         <Navbar />
         <FormWrapper>
-          <Subtitle>WELCOME BACK</Subtitle>
-          <Title>Log in to your account.</Title>
+          <Subtitle>START FOR FREE</Subtitle>
+          <Title>Create new account.</Title>
 
           <BottomText>
-            Not A Member? <Link to="/signup">Sign Up</Link>
+            Already A Member? <Link to="/login">Log In</Link>
           </BottomText>
           
           <form onSubmit={handleSubmit}>
+            <NameFieldsContainer>
+              <FormInput 
+                label="First name" 
+                defaultValue="Michał" 
+                icon={<FaCopy />}
+              />
+              <FormInput 
+                label="Last name" 
+                defaultValue="Masiak" 
+                icon={<FaCopy />}
+              />
+            </NameFieldsContainer>
+            
             <FormInput 
               label="Email" 
               defaultValue="michal.masiak@anywhere.co" 
@@ -61,7 +75,7 @@ const LoginPage = () => {
             
             <ButtonContainer>
               <ChangeMethod>Change method</ChangeMethod>
-              <Button type="submit">Log in</Button>
+              <Button type="submit">Create account</Button>
             </ButtonContainer>
           </form>
         </FormWrapper>
@@ -71,4 +85,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default SignupPage;
